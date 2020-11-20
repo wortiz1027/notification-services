@@ -4,6 +4,7 @@ import co.edu.javeriana.services.notifications.domain.Notification;
 import co.edu.javeriana.services.notifications.domain.Response;
 import co.edu.javeriana.services.notifications.domain.Status;
 import co.edu.javeriana.services.notifications.services.MailServices;
+import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -20,12 +21,19 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1")
+@Api(value="Controlador de notificaciones, su finalidad es funcionar como punto de entrada a las funciones de notificación.")
 public class NotificationsController {
-
     private final MailServices mail;
 
     @PostMapping("/email")
-    public ResponseEntity<Response> enviar(@RequestBody Notification request) {
+    @ApiOperation(value = "La finalidad de esta operación es servir como punto de entrada para envíar notificaciones haciendo uso de un protocolo SMTP", response = Response.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La notificación fue realizada exitosamente."),
+            @ApiResponse(code = 404, message = "Error no fue posible envíar la notificación."),
+            @ApiResponse(code = 500, message = "Error interno en el servidor, contacte y reporte con el administrador")
+    })
+    public ResponseEntity<Response> enviar(@ApiParam("Información asociada al cuerpo y partes de la notificación que se desea envíar.")
+                                           @RequestBody Notification request) {
         Response response = new Response();
         try {
 
