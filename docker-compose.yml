@@ -9,18 +9,18 @@
 version: '3.7'
 services:
   notifications-service:
-    image: notifications-service:latest
+    image: wortiz1027/notifications-service:latest
     container_name: notifications-service
     hostname: notifications-service
     restart: always
     ports:
       - 8093:8093
     networks:
-      - backend
+      - ntw_backend
     environment:
       - SERVICE_PORTS=8093
 volumes:
   data_convenios:
 networks:
-  backend:
+  ntw_backend:
     external: true
