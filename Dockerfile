@@ -25,6 +25,7 @@ ARG BUILD_VERSION
 ARG BUILD_REVISION
 
 ENV APP_HOME="/app" \
+    TEMPLATES_DIR="/tmp/templates" \
 	HTTP_PORT=8093
 
 # Informacion de la persona que mantiene la imagen
@@ -41,12 +42,13 @@ LABEL org.opencontainers.image.created=$BUILD_DATE \
 	  org.opencontainers.image.description="El siguiente servicio gestionar el envio de notificaciones por correo electronico"
 
 # Creando directorios de la aplicacion y de carga temporal de los archivos
-RUN mkdir $APP_HOME
+RUN mkdir $APP_HOME $TEMPLATES_DIR
 
 # Puerto de exposicion del servicio
 EXPOSE $HTTP_PORT
 
 # Copiando el compilado desde builder
 COPY --from=builder /build/target/$JAR_FILE $APP_HOME/
+COPY ./src/main/resources/templates/orders-success.ftl /tmp/templates
 
 ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar ${APP_HOME}/notifications-services.jar"]
