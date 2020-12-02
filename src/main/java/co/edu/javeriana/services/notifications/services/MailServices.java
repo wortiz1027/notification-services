@@ -25,20 +25,14 @@ public class MailServices {
     @Value("${spring.mail.username}")
     private String from;
 
+    @Value("${spring.mail.username}")
+    private String templateDir;
+
     private final JavaMailSender sender;
 
     private final Configuration config;
 
     public void sendEmail(Notification data) throws IOException, MessagingException, TemplateException {
-
-        /*SimpleMailMessage message = new SimpleMailMessage();
-
-        message.setTo(data.getTo());
-        message.setSubject(data.getSubject());
-        message.setText(data.getBody());
-
-        sender.send(message);*/
-
         MimeMessage message = sender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message,
                                                          MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
@@ -47,6 +41,7 @@ public class MailServices {
         helper.addInline("logo.png", new ClassPathResource("memorynotfound-logo.png"));
         helper.addAttachment("logo.png", new ClassPathResource("memorynotfound-logo.png"));
 
+        //Template template = config.getTemplate(String.format("%s%s", this.templateDir, data.getTemplate()));
         Template template = config.getTemplate(data.getTemplate());
         String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, data.getParams());
 
@@ -56,7 +51,6 @@ public class MailServices {
         helper.setFrom(from);
 
         sender.send(message);
-
     }
 
 }
