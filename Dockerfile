@@ -42,15 +42,18 @@ LABEL org.opencontainers.image.created=$BUILD_DATE \
 	  org.opencontainers.image.description="El siguiente servicio gestionar el envio de notificaciones por correo electronico"
 
 # Creando directorios de la aplicacion y de carga temporal de los archivos
-RUN mkdir $APP_HOME $TEMPLATES_DIR
+RUN mkdir $APP_HOME
+RUN mkdir -p $TEMPLATES_DIR/success
+RUN mkdir -p $TEMPLATES_DIR/refused
+RUN mkdir -p $TEMPLATES_DIR/canceled
 
 # Puerto de exposicion del servicio
 EXPOSE $HTTP_PORT
 
 # Copiando el compilado desde builder
 COPY --from=builder /build/target/$JAR_FILE $APP_HOME/
-COPY ./src/main/resources/templates/orders-success.ftl /tmp/templates
-COPY ./src/main/resources/templates/orders-refused.ftl /tmp/templates
-COPY ./src/main/resources/templates/orders-canceled.ftl /tmp/templates
+COPY src/main/resources/templates/orders-informations.ftl $TEMPLATES_DIR/success
+COPY src/main/resources/templates/refused/orders-refused.ftl $TEMPLATES_DIR/refused
+COPY src/main/resources/templates/canceled/orders-canceled.ftl $TEMPLATES_DIR/canceled
 
 ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar ${APP_HOME}/notifications-services.jar"]

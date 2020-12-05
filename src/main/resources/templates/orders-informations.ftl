@@ -20,7 +20,7 @@
 
 <table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="border-collapse: collapse;">
     <tr>
-        <td align="center" bgcolor="#78ab46" style="padding: 40px 0 30px 0;">
+        <td align="center" bgcolor="${KEY_COLOR}" style="padding: 40px 0 30px 0;">
             <!--img src="logo.png" alt="https://www.touresbalon.com" style="display: block;" /-->
         </td>
     </tr>
