@@ -22,6 +22,7 @@
     <tr>
         <td align="center" bgcolor="${KEY_COLOR}" style="padding: 40px 0 30px 0;">
             <!--img src="logo.png" alt="https://www.touresbalon.com" style="display: block;" /-->
+            <h3>Toures Balon</h3>
         </td>
     </tr>
     <tr>
