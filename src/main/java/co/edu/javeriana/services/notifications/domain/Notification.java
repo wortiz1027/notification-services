@@ -13,7 +13,7 @@ public class Notification implements java.io.Serializable {
     private String to;
     @ApiModelProperty(notes = "Especifica el asutno al que se asocia la notificación.")
     private String subject;
-    @ApiModelProperty(notes = "Cuerpo de la notificación")
+    @ApiModelProperty(notes = "Cuerpo de la notificacion")
     private String body;
     @ApiModelProperty(notes = "Estructura en la cual se desea ver la notificación, a nivel interno es una especificación HTML.")
     private String template;

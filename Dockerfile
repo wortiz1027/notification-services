@@ -50,5 +50,7 @@ EXPOSE $HTTP_PORT
 # Copiando el compilado desde builder
 COPY --from=builder /build/target/$JAR_FILE $APP_HOME/
 COPY ./src/main/resources/templates/orders-success.ftl /tmp/templates
+COPY ./src/main/resources/templates/orders-refused.ftl /tmp/templates
+COPY ./src/main/resources/templates/orders-canceled.ftl /tmp/templates
 
 ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar ${APP_HOME}/notifications-services.jar"]

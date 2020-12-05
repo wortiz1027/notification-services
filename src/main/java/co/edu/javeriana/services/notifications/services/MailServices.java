@@ -41,7 +41,7 @@ public class MailServices {
         helper.addInline("logo.png", new ClassPathResource("memorynotfound-logo.png"));
         helper.addAttachment("logo.png", new ClassPathResource("memorynotfound-logo.png"));
 
-        //Template template = config.getTemplate(String.format("%s%s", this.templateDir, data.getTemplate()));
+        data.getParams().put("KEY_MESSAGE", data.getBody());
         Template template = config.getTemplate(data.getTemplate());
         String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, data.getParams());
 
